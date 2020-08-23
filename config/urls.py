@@ -21,7 +21,9 @@ from django.conf import settings # 追加
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('register.urls')),
     path('api/',include('imageapp.urls')),
+    path('uploader/', include('nuploader1.urls'))
 ]
 
 if settings.DEBUG:

@@ -1,4 +1,5 @@
 from django.db import models
+from register.models import User
 
 # Create your models here.
 CATEGORY = (
@@ -22,6 +23,7 @@ class Item(models.Model):
     posession= models.BooleanField(verbose_name='所有',null=False)
     shopname = models.CharField(verbose_name='店名',max_length=255,null=True)
     shopurl = models.CharField(verbose_name='URL',max_length=1028,null=True)
+    user = models.ForeignKey(User, verbose_name='ユーザー', on_delete=models.CASCADE, null=False)
 
     def __str__(self):
         return self.name

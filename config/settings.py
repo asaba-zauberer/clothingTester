@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ec2-3-236-147-60.compute-1.amazonaws.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -42,16 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'nuploader1.apps.Nuploader1Config',
     'imageapp',
-
-    'rest_framework',
+    'register.apps.RegisterConfig',
     'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -91,10 +91,10 @@ DATABASES = {
 }
 
 # 許可するオリジン
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    )
+#CORS_ORIGIN_WHITELIST = (
+#    'http://localhost:3000',
+#    'http://127.0.0.1:3000',
+#    )
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Password validation
@@ -137,3 +137,19 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# カスタムユーザーを使う
+AUTH_USER_MODEL = 'register.User'
+
+# ログインページと、直接ログインページへ行った後のリダイレクトページ
+LOGIN_URL = 'register:login'
+LOGIN_REDIRECT_URL = 'register:top'
+
+# メールをコンソールに表示する
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '	trying.on.clothingtester.dev@gmail.com'
+EMAIL_HOST_PASSWORD = 'iaeipfaecmubrlpl'
+EMAIL_USE_TLS = True
